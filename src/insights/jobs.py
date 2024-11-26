@@ -19,16 +19,16 @@ class ProcessJobs:
         }
         return list(job_types)
 
-    def filter_by_multiple_criteria(self,
-                                    filter_criteria: Dict[str, str]
-                                    ) -> List[Dict]:
+    def filter_by_multiple_criteria(self, filter_criteria: Dict[str, str]) -> List[Dict]:
+    filtered_jobs = []
 
-        filtered_jobs = self.jobs_list
-
+    for job in self.jobs_list:
+        match = True
         for key, value in filter_criteria.items():
-            filtered_jobs = [
-                job for job in filtered_jobs
-                if job.get(key) == value
-            ]
+            if job.get(key) != value:
+                match = False
+                break
+        if match:
+            filtered_jobs.append(job)
 
-        return filtered_jobs
+    return filtered_jobs
