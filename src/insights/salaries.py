@@ -26,17 +26,27 @@ class ProcessSalaries(ProcessJobs):
 
     def matches_salary_range(self, job: Dict, salary: Union[int, str]) -> bool:
         if isinstance(salary, str):
+            if not salary.isdigit():
+                raise ValueError("O parâmetro salary deve ser um número.")
             salary = int(salary)
 
-        min_salary = job.get("min_salary")
-        max_salary = job.get("max_salary")
+        if 'min_salary' not in job or 'max_salary' not in job:
+            raise ValueError("As chaves min_salary e max_salary devem estar presentes no dicionário job.")
 
-        if min_salary is None or max_salary is None:
-            return False
-        if not (isinstance(min_salary, int) and isinstance(max_salary, int)):
-            return False
+        min_salary = job['min_salary']
+        max_salary = job['max_salary']
 
-        return min_salary <= salary <= max_salary
+        for value in (min_salary, max_salary):
+            if isinstance(value, str):
+                if not value.isdigit():
+                    raise ValueError("Os valores de min_salary e max_salary devem ser numéricos.")
+                value = int(value)
+
+        if int(min_salary) > int(max_salary):
+            raise ValueError("O valor de min_salary não pode ser maior que o valor de max_salary.")
+
+        return int(min_salary) <= salary <= int(max_salary)
+
 
     def filter_by_salary_range(
         self, jobs: List[dict], salary: Union[str, int]
