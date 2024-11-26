@@ -23,12 +23,8 @@ class ProcessJobs:
     filtered_jobs = []
 
     for job in self.jobs_list:
-        match = True
-        for key, value in filter_criteria.items():
-            if job.get(key) != value:
-                match = False
-                break
-        if match:
+
+        if all(job.get(key) == value for key, value in filter_criteria.items()):
             filtered_jobs.append(job)
 
     return filtered_jobs
