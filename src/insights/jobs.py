@@ -21,7 +21,7 @@ class ProcessJobs:
 
     def filter_by_multiple_criteria(self,
                                     filter_criteria: Dict[str, str]
-                                   ) -> List[Dict]:
+                                    ) -> List[Dict]:
 
         filtered_jobs = self.jobs_list
 
