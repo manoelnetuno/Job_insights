@@ -22,6 +22,9 @@ class ProcessJobs:
     def filter_by_multiple_criteria(
         self, filter_criteria: Dict[str, str]
     ) -> List[Dict]:
+        if not isinstance(filter_criteria, dict):
+            raise TypeError("O filtro fornecido deve ser um dicionário.")
+
         filtered_jobs = []
 
         for job in self.jobs_list:
