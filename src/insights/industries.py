@@ -1,6 +1,7 @@
 from src.insights.jobs import ProcessJobs
 from typing import List
 
+
 class ProcessIndustries(ProcessJobs):
     def __init__(self):
         super().__init__()
